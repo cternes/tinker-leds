@@ -1,6 +1,8 @@
 package de.slackspace.tinkerled.device;
 
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.List;
 
 import com.tinkerforge.BrickletLEDStrip;
 import com.tinkerforge.IPConnection;
@@ -86,6 +88,50 @@ public class EnhancedLedStrip extends BrickletLEDStrip {
         	b[pixelIdx] = blue;
 	        
         	setRGBValues(offset * 16, (short)16, b, r, g);
+		} catch (TimeoutException e) {
+			e.printStackTrace();
+		} catch (NotConnectedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void setLeds(List<Led> leds) {
+//		Collections.sort(leds, new Comparator<Led>() {
+//			public int compare(Led o1, Led o2) {
+//				if(o1.getIndex() < o2.getIndex()) {
+//					return -1;
+//				}
+//				else if(o1.getIndex() > o2.getIndex()) {
+//					return 1;
+//				}
+//				
+//				return 0;
+//			}
+//		});
+		
+		try {
+			HashMap<Integer, LedGroup> ledGroups = new HashMap<>();
+	        
+			for (Led led : leds) {
+				int offset = led.getIndex() / 16;
+				int pixelIdx = led.getIndex() % 16;
+				
+				LedGroup ledGroup = ledGroups.get(offset);
+				if(ledGroup == null) {
+					ledGroup = new LedGroup();
+					ledGroups.put(offset, ledGroup);
+				}
+				
+				ledGroup.getRed()[pixelIdx] = led.getRed();
+				ledGroup.getGreen()[pixelIdx] = led.getGreen();	
+				ledGroup.getBlue()[pixelIdx] = led.getBlue();
+			}
+			
+			for (Integer groupOffset : ledGroups.keySet()) {
+				LedGroup ledGroup = ledGroups.get(groupOffset);
+				
+				setRGBValues(groupOffset * 16, (short)16, ledGroup.getBlue(), ledGroup.getGreen(), ledGroup.getRed());
+			}
 		} catch (TimeoutException e) {
 			e.printStackTrace();
 		} catch (NotConnectedException e) {
