@@ -1,6 +1,5 @@
 package de.slackspace.tinkerled;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
@@ -8,7 +7,7 @@ import com.tinkerforge.AlreadyConnectedException;
 import com.tinkerforge.IPConnection;
 import com.tinkerforge.NotConnectedException;
 
-import de.slackspace.tinkerled.behavior.ColorIntensityChanger;
+import de.slackspace.tinkerled.behavior.SingleLedRunner;
 import de.slackspace.tinkerled.device.EnhancedLedStrip;
 
 public class LedStripManager {
@@ -47,8 +46,8 @@ public class LedStripManager {
     }
     
     public void run() {
-    	//SingleLedRunner listener = new SingleLedRunner(ledStrip, "#F7EA31", 20);
-    	ColorIntensityChanger listener = new ColorIntensityChanger(ledStrip, Color.red, 20);
+    	//ColorIntensityChanger listener = new ColorIntensityChanger(ledStrip, Color.red, 20);
+    	SingleLedRunner listener = new SingleLedRunner(ledStrip, "#2F1FDE", 20);
     	ledStrip.addFrameRenderedListener(listener);
     }
     

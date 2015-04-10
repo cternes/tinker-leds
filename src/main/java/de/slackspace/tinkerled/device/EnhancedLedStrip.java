@@ -60,6 +60,36 @@ public class EnhancedLedStrip extends BrickletLEDStrip {
 		} catch (NotConnectedException e) {
 			e.printStackTrace();
 		}
-		
+	}
+	
+	public void setSingleLed(int index, String colorHexTriplet) {
+		Color color = Color.decode(colorHexTriplet);
+		short red = (short) color.getRed();
+		short green = (short) color.getGreen();
+		short blue = (short) color.getBlue();
+			
+		setSingleLed(index, red, green, blue);
+	}
+	
+	public void setSingleLed(int index, short red, short green, short blue) {
+		try {
+			// calculate offset
+			int offset = index / 16;
+			int pixelIdx = index % 16;
+			
+			short[] r = new short[16];
+	        short[] g = new short[16];
+	        short[] b = new short[16];
+	        
+	        r[pixelIdx] = red;
+        	g[pixelIdx] = green;	
+        	b[pixelIdx] = blue;
+	        
+        	setRGBValues(offset * 16, (short)16, b, r, g);
+		} catch (TimeoutException e) {
+			e.printStackTrace();
+		} catch (NotConnectedException e) {
+			e.printStackTrace();
+		}
 	}
 }
