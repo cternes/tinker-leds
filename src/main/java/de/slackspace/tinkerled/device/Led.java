@@ -10,8 +10,10 @@ public class Led {
 	private short blue;
 	
 	public Led(int index, String colorHexTriplet) {
-		Color color = Color.decode(colorHexTriplet);
-		
+		this(index, Color.decode(colorHexTriplet));
+	}
+	
+	public Led(int index, Color color) {
 		this.index = index;
 		red = (short) color.getRed();
 		green = (short) color.getGreen();
