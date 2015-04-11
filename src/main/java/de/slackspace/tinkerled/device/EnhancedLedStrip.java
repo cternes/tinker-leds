@@ -96,19 +96,6 @@ public class EnhancedLedStrip extends BrickletLEDStrip {
 	}
 	
 	public void setLeds(List<Led> leds) {
-//		Collections.sort(leds, new Comparator<Led>() {
-//			public int compare(Led o1, Led o2) {
-//				if(o1.getIndex() < o2.getIndex()) {
-//					return -1;
-//				}
-//				else if(o1.getIndex() > o2.getIndex()) {
-//					return 1;
-//				}
-//				
-//				return 0;
-//			}
-//		});
-		
 		try {
 			HashMap<Integer, LedGroup> ledGroups = new HashMap<>();
 	        

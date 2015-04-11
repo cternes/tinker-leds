@@ -47,7 +47,7 @@ public class LedStripManager {
 		}
     }
     
-    public void run() throws InterruptedException {
+    public void run() {
     	//ColorIntensityChanger listener = new ColorIntensityChanger(ledStrip, Color.red, 20);
     	//SingleLedRunner listener = new SingleLedRunner(ledStrip, "#2F1FDE", 20);
     	//ledStrip.addFrameRenderedListener(listener);
