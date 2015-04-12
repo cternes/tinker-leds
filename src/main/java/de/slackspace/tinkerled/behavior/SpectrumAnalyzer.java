@@ -26,7 +26,7 @@ public class SpectrumAnalyzer extends AbstractLedBehavior implements FrameRender
 	private BeatLevelHandler kickLevelHandler;
 	private BeatLevelHandler snareLevelHandler;
 
-	public SpectrumAnalyzer(EnhancedLedStrip ledStrip, String colorHexTriplet, int frameRatePerSecond) {
+	public SpectrumAnalyzer(EnhancedLedStrip ledStrip, String colorHexTriplet, int frameRatePerSecond, String audioFile) {
 		super(ledStrip, colorHexTriplet, frameRatePerSecond);
 		
 		colors.add(Color.decode("#B91BF2"));
@@ -43,7 +43,7 @@ public class SpectrumAnalyzer extends AbstractLedBehavior implements FrameRender
 		snareLevelHandler = new BeatLevelHandler(29, colors, false);
 		
 		Minim minim = new Minim(this);
-		audioPlayer = minim.loadFile("d:/test2.mp3");
+		audioPlayer = minim.loadFile(audioFile);
 		beatDetector = new BeatDetect(audioPlayer.bufferSize(), audioPlayer.sampleRate());
 		beatDetector.setSensitivity(150);
 		

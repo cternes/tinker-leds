@@ -7,7 +7,7 @@ import com.tinkerforge.AlreadyConnectedException;
 import com.tinkerforge.IPConnection;
 import com.tinkerforge.NotConnectedException;
 
-import de.slackspace.tinkerled.behavior.SpectrumAnalyzer;
+import de.slackspace.tinkerled.behavior.SingleLedRunner;
 import de.slackspace.tinkerled.device.EnhancedLedStrip;
 
 public class LedStripManager {
@@ -46,17 +46,7 @@ public class LedStripManager {
     }
     
     public void run() {
-//    	ColorIntensityChanger listener = new ColorIntensityChanger(ledStrip, Color.red, 20);
-//    	SingleLedRunner listener = new SingleLedRunner(ledStrip, "#045205", 20);
-//    	ledStrip.addFrameRenderedListener(listener);
-    	
-//    	List<Led> leds = new ArrayList<>();
-//    	leds.add(new Led(5, "#ffffff"));
-//    	leds.add(new Led(10, "#ffffff"));
-//    	leds.add(new Led(15, "#ffffff"));
-//    	ledStrip.setLeds(leds);
-    	
-    	SpectrumAnalyzer listener = new SpectrumAnalyzer(ledStrip, "000000", 20);
+    	SingleLedRunner listener = new SingleLedRunner(ledStrip, "#045205", 20);
     	ledStrip.addFrameRenderedListener(listener);
     }
     
