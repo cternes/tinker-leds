@@ -55,5 +55,10 @@ public class Led {
 	public void setBlue(short blue) {
 		this.blue = blue;
 	}
+
+	@Override
+	public String toString() {
+		return "Led [index=" + index + ", red=" + red + ", green=" + green + ", blue=" + blue + "]";
+	}
 	
 }

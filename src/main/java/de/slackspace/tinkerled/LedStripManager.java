@@ -46,7 +46,7 @@ public class LedStripManager {
     }
     
     public void run() {
-    	KnightRider listener = new KnightRider(ledStrip, 20, 1, 19, 5);
+    	KnightRider listener = new KnightRider(ledStrip, 2, 5, 20, 5);
     	ledStrip.addFrameRenderedListener(listener);
     }
     
