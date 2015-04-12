@@ -23,20 +23,8 @@ public class EnhancedLedStrip extends BrickletLEDStrip {
 	}
 
 	public void turnOff() {
-		try {
-			short[] r = new short[16];
-	        short[] g = new short[16];
-	        short[] b = new short[16];
-	        
-	        // turn off all leds
-	        for (int i = 0; i < 150; i += 16) {
-	        	setRGBValues(i, (short)16, b, r, g);	
-			}
-		} catch (TimeoutException e) {
-			e.printStackTrace();
-		} catch (NotConnectedException e) {
-			e.printStackTrace();
-		}
+		// turn off all leds
+		setAllLeds((short)0, (short)0, (short)0);
 	}
 	
 	public void setAllLeds(String colorHexTriplet) {
@@ -60,8 +48,8 @@ public class EnhancedLedStrip extends BrickletLEDStrip {
 	        	b[i] = blue;	
 			}
 	        
-	        // turn off all leds
-	        for (int i = 0; i < 150; i += 16) {
+	        // set all leds
+	        for (int i = 0; i < size; i += 16) {
 	        	setRGBValues(i, (short)16, b, r, g);	
 			}
 		} catch (TimeoutException e) {
@@ -82,8 +70,10 @@ public class EnhancedLedStrip extends BrickletLEDStrip {
 	
 	public void setSingleLed(int index, short red, short green, short blue) {
 		try {
-			// calculate offset
+			// calculate offset from beginning
 			int offset = index / 16;
+			
+			// calculate inner offset in array
 			int pixelIdx = index % 16;
 			
 			short[] r = new short[16];
