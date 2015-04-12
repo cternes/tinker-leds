@@ -11,8 +11,15 @@ import com.tinkerforge.TimeoutException;
 
 public class EnhancedLedStrip extends BrickletLEDStrip {
 
+	private int size = 150;
+	
 	public EnhancedLedStrip(String uid, IPConnection ipcon) {
 		super(uid, ipcon);
+	}
+	
+	public EnhancedLedStrip(String uid, IPConnection ipcon, int size) {
+		super(uid, ipcon);
+		this.size = size;
 	}
 
 	public void turnOff() {
@@ -124,5 +131,9 @@ public class EnhancedLedStrip extends BrickletLEDStrip {
 		} catch (NotConnectedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int getSize() {
+		return size;
 	}
 }

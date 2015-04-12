@@ -14,10 +14,14 @@ public class Led {
 	}
 	
 	public Led(int index, Color color) {
+		this(index, (short) color.getRed(), (short) color.getGreen(), (short) color.getBlue());
+	}
+	
+	public Led(int index, short red, short green, short blue) {
 		this.index = index;
-		red = (short) color.getRed();
-		green = (short) color.getGreen();
-		blue = (short) color.getBlue();
+		this.red = red;
+		this.green = green;
+		this.blue = blue;
 	}
 
 	public int getIndex() {

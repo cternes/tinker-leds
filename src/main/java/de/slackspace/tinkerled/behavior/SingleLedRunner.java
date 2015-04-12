@@ -1,14 +1,18 @@
 package de.slackspace.tinkerled.behavior;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.tinkerforge.BrickletLEDStrip.FrameRenderedListener;
 import com.tinkerforge.NotConnectedException;
 import com.tinkerforge.TimeoutException;
 
 import de.slackspace.tinkerled.device.EnhancedLedStrip;
+import de.slackspace.tinkerled.device.Led;
 
 public class SingleLedRunner extends AbstractLedBehavior implements FrameRenderedListener {
 
-	private int LED_IDX = 0;
+	private int currentLed = 0;
 	private boolean increment = true;
 
 	public SingleLedRunner(EnhancedLedStrip ledStrip, String colorHexTriplet, int frameRatePerSecond) {
@@ -21,17 +25,13 @@ public class SingleLedRunner extends AbstractLedBehavior implements FrameRendere
 			renderFrame();
 			
 			// direction control
-			if(increment) {
-				LED_IDX++;
-			}
-			else {
-				LED_IDX--;
-			}
+			currentLed = increment ? ++currentLed : --currentLed;
 			
-			if(LED_IDX > 150) {
+			if(currentLed > ledStrip.getSize()) {
 				increment = false;
 			}
-			if(LED_IDX == 0) {
+			
+			if(currentLed == 0) {
 				increment = true;
 			}
 		} catch (TimeoutException e) {
@@ -46,16 +46,10 @@ public class SingleLedRunner extends AbstractLedBehavior implements FrameRendere
 	}
 
 	private void renderFrame() throws TimeoutException, NotConnectedException {
-		short[] r = new short[16];
-		short[] g = new short[16];
-		short[] b = new short[16];
-
-		r[0] = red;
-		g[0] = green;
-		b[0] = blue;
-		
 		// set single led
-		ledStrip.setRGBValues(LED_IDX, (short)16, b, r, g);	
+		List<Led> leds = new ArrayList<Led>();
+		leds.add(new Led(currentLed, red, green, blue));
+		ledStrip.setLeds(leds);
 	}
 
 }
