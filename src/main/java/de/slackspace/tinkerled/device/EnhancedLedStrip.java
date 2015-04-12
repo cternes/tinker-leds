@@ -137,7 +137,7 @@ public class EnhancedLedStrip extends BrickletLEDStrip {
 	}
 	
 	public List<Led> prepareRangeLeds(int fromIndex, int size, String colorHexTriplet, List<Led> leds) {
-		for (int i = fromIndex; i < fromIndex + size; i++) {
+		for (int i = fromIndex; i < fromIndex + size + 1; i++) {
 			leds.add(new Led(i, colorHexTriplet));
 		}
 		
@@ -145,7 +145,7 @@ public class EnhancedLedStrip extends BrickletLEDStrip {
 	}
 	
 	public List<Led> prepareRangeInverseLeds(int fromIndex, int size, String colorHexTriplet, List<Led> leds) {
-		for (int i = fromIndex - 1; i >= fromIndex - size; i--) {
+		for (int i = fromIndex; i > fromIndex - size; i--) {
 			leds.add(new Led(i, colorHexTriplet));
 		}
 		

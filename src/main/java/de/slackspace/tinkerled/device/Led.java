@@ -55,6 +55,12 @@ public class Led {
 	public void setBlue(short blue) {
 		this.blue = blue;
 	}
+	
+	public void turnOff() {
+		setRed((short)0);
+		setBlue((short)0);
+		setGreen((short)0);
+	}
 
 	@Override
 	public String toString() {
