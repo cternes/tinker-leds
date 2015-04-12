@@ -47,7 +47,7 @@ public class SingleLedRunner extends AbstractLedBehavior implements FrameRendere
 
 	private void renderFrame() throws TimeoutException, NotConnectedException {
 		// set single led
-		List<Led> leds = new ArrayList<Led>();
+		List<Led> leds = new ArrayList<>();
 		leds.add(new Led(currentLed, red, green, blue));
 		ledStrip.setLeds(leds);
 	}

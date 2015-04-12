@@ -7,7 +7,7 @@ import com.tinkerforge.AlreadyConnectedException;
 import com.tinkerforge.IPConnection;
 import com.tinkerforge.NotConnectedException;
 
-import de.slackspace.tinkerled.behavior.SingleLedRunner;
+import de.slackspace.tinkerled.behavior.KnightRider;
 import de.slackspace.tinkerled.device.EnhancedLedStrip;
 
 public class LedStripManager {
@@ -46,7 +46,7 @@ public class LedStripManager {
     }
     
     public void run() {
-    	SingleLedRunner listener = new SingleLedRunner(ledStrip, "#045205", 20);
+    	KnightRider listener = new KnightRider(ledStrip, 20, 1, 19, 5);
     	ledStrip.addFrameRenderedListener(listener);
     }
     

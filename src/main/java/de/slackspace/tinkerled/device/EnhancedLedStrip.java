@@ -1,6 +1,7 @@
 package de.slackspace.tinkerled.device;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -114,13 +115,27 @@ public class EnhancedLedStrip extends BrickletLEDStrip {
 			for (Integer groupOffset : ledGroups.keySet()) {
 				LedGroup ledGroup = ledGroups.get(groupOffset);
 				
-				setRGBValues(groupOffset * 16, (short)16, ledGroup.getBlue(), ledGroup.getGreen(), ledGroup.getRed());
+				setRGBValues(groupOffset * 16, (short)16, ledGroup.getBlue(), ledGroup.getRed(), ledGroup.getGreen());
 			}
 		} catch (TimeoutException e) {
 			e.printStackTrace();
 		} catch (NotConnectedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void setRangeLeds(int fromIndex, int size, String colorHexTriplet) {
+		List<Led> leds = new ArrayList<>();
+		leds = prepareRangeLeds(fromIndex, size, colorHexTriplet, leds);
+		setLeds(leds);
+	}
+	
+	public List<Led> prepareRangeLeds(int fromIndex, int size, String colorHexTriplet, List<Led> leds) {
+		for (int i = fromIndex; i < fromIndex + size; i++) {
+			leds.add(new Led(i, colorHexTriplet));
+		}
+		
+		return leds;
 	}
 	
 	public int getSize() {

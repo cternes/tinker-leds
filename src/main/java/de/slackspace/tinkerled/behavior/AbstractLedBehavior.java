@@ -14,6 +14,10 @@ public abstract class AbstractLedBehavior {
 	protected short green;
 	protected short blue;
 	
+	public AbstractLedBehavior(EnhancedLedStrip ledStrip, int frameRatePerSecond) {
+		this(ledStrip, "#000000", frameRatePerSecond);
+	}
+	
 	public AbstractLedBehavior(EnhancedLedStrip ledStrip, String colorHexTriplet, int frameRatePerSecond) {
 		this.ledStrip = ledStrip;
 		
