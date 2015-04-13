@@ -10,6 +10,8 @@ import de.slackspace.tinkerled.device.Led;
 
 public class PulseMode extends AbstractLedBehavior implements FrameRenderedListener {
 
+	private int numOfFullAnimations = 0;
+	
 	private boolean increment = true;
 	private int minBoundary = 0;
 	private int maxBoundary = 150;
@@ -46,6 +48,15 @@ public class PulseMode extends AbstractLedBehavior implements FrameRenderedListe
 		else if (color <= 0) {
 			increment = true;
 			color = 0;
+			numOfFullAnimations++;
 		}
+	}
+	
+	public int getNumOfFullAnimations() {
+		return numOfFullAnimations;
+	}
+
+	public void setNumOfFullAnimations(int numOfFullAnimations) {
+		this.numOfFullAnimations = numOfFullAnimations;
 	}
 }
