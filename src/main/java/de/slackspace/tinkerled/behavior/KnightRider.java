@@ -18,6 +18,10 @@ public class KnightRider extends AbstractLedBehavior implements FrameRenderedLis
 	private int maxSizeOfBrightLeds = 5;
 	private int sizeOfBrightLeds = 5;
 	
+	private int modeCounter = 0;
+	
+	private PulseMode pulseModeBehavior;
+	
 	public KnightRider(EnhancedLedStrip ledStrip, int frameRatePerSecond, int minBoundary, int maxBoundary, int sizeOfBrightLeds) {
 		super(ledStrip, frameRatePerSecond);
 		
@@ -26,10 +30,23 @@ public class KnightRider extends AbstractLedBehavior implements FrameRenderedLis
 		this.sizeOfBrightLeds = sizeOfBrightLeds;
 		this.maxSizeOfBrightLeds = sizeOfBrightLeds;
 		this.currentIndex = maxBoundary;
+		
+		pulseModeBehavior = new PulseMode(ledStrip, frameRatePerSecond, minBoundary, maxBoundary);
 	}
 
 	@Override
 	public void frameRendered(int length) {
+//		if(modeCounter < 120) {
+//			scanMode();	
+//		}
+//		if(modeCounter > 120) {
+			pulseModeBehavior.frameRendered(length);
+//		}
+		
+		modeCounter++;
+	}
+	
+	public void scanMode() {
 		List<Led> leds = new ArrayList<>();
 		
 		// set background

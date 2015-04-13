@@ -137,8 +137,13 @@ public class EnhancedLedStrip extends BrickletLEDStrip {
 	}
 	
 	public List<Led> prepareRangeLeds(int fromIndex, int size, String colorHexTriplet, List<Led> leds) {
+		Color color = Color.decode(colorHexTriplet);
+		return prepareRangeLeds(fromIndex, size, (short)color.getRed(), (short)color.getGreen(), (short)color.getBlue(), leds);
+	}
+	
+	public List<Led> prepareRangeLeds(int fromIndex, int size, short red, short green, short blue, List<Led> leds) {
 		for (int i = fromIndex; i < fromIndex + size + 1; i++) {
-			leds.add(new Led(i, colorHexTriplet));
+			leds.add(new Led(i, red, green, blue));
 		}
 		
 		return leds;
