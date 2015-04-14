@@ -1,11 +1,12 @@
 package de.slackspace.tinkerled;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 
 import com.tinkerforge.AlreadyConnectedException;
+import com.tinkerforge.BrickletLEDStrip;
 import com.tinkerforge.IPConnection;
 import com.tinkerforge.NotConnectedException;
+import com.tinkerforge.TimeoutException;
 
 import de.slackspace.tinkerled.behavior.KnightRider;
 import de.slackspace.tinkerled.device.EnhancedLedStrip;
@@ -23,14 +24,9 @@ public class LedStripManager {
         ledStrip = new EnhancedLedStrip(UID, ipcon);
         try {
 			ipcon.connect(HOST, PORT);
+			ledStrip.setChipType(BrickletLEDStrip.CHIP_TYPE_WS2812);
 			return true;
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-			return false;
-		} catch (AlreadyConnectedException e) {
-			e.printStackTrace();
-			return false;
-		} catch (IOException e) {
+		} catch (AlreadyConnectedException | IOException | TimeoutException | NotConnectedException e) {
 			e.printStackTrace();
 			return false;
 		}
