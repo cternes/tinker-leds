@@ -28,7 +28,7 @@ public class PulseMode extends AbstractLedBehavior implements FrameRenderedListe
 	public void frameRendered(int length) {
 		ledStrip.turnOff();
 		List<Led> leds = new ArrayList<>();
-		leds = ledStrip.prepareRangeLeds(minBoundary, maxBoundary - minBoundary, color, (short)0, (short)0, leds);
+		leds = ledStrip.prepareRangeLeds(minBoundary, maxBoundary - minBoundary, (short)0, color, (short)0, leds);
 		ledStrip.setLeds(leds);
 		
 		calcNextColor();
@@ -59,4 +59,5 @@ public class PulseMode extends AbstractLedBehavior implements FrameRenderedListe
 	public void setNumOfFullAnimations(int numOfFullAnimations) {
 		this.numOfFullAnimations = numOfFullAnimations;
 	}
+	
 }

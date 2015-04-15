@@ -13,6 +13,7 @@ import com.tinkerforge.BrickletLEDStrip.FrameRenderedListener;
 
 import de.slackspace.tinkerled.LedStripManager;
 import de.slackspace.tinkerled.behavior.KnightRider;
+import de.slackspace.tinkerled.behavior.RainbowMode;
 
 @RestController
 @RequestMapping("/ledstrip")
@@ -30,7 +31,8 @@ public class LedStripResource {
 		if(connected) {
 			logger.debug("Successfully connected to tinkerforge brick");
 			
-			startKnightRiderMode(5, 19);
+			startRainbowMode();
+//			startKnightRiderMode(5, 19);
 		}
 	}
 	
@@ -40,9 +42,19 @@ public class LedStripResource {
 		manager.disconnect();
 	}
 	
+	private void startRainbowMode() {
+		setMode(new RainbowMode(manager.getLedStrip(), 2));
+	}
+	
 	private void startKnightRiderMode(int minBoundary, int maxBoundary) {
-		currentMode = new KnightRider(manager.getLedStrip(), 20, minBoundary, maxBoundary, 5);
-		manager.getLedStrip().addFrameRenderedListener(currentMode);
+		setMode(new KnightRider(manager.getLedStrip(), 20, minBoundary, maxBoundary, 5));
+	}
+	
+	private void setMode(FrameRenderedListener newMode) {
+		manager.getLedStrip().removeFrameRenderedListener(currentMode);
+		manager.getLedStrip().addFrameRenderedListener(newMode);
+		
+		currentMode = newMode;
 		currentMode.frameRendered(0);
 	}
 }
