@@ -2,17 +2,23 @@ package de.slackspace.tinkerled;
 
 import java.io.IOException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Component;
+
 import com.tinkerforge.AlreadyConnectedException;
 import com.tinkerforge.BrickletLEDStrip;
 import com.tinkerforge.IPConnection;
 import com.tinkerforge.NotConnectedException;
 import com.tinkerforge.TimeoutException;
 
-import de.slackspace.tinkerled.behavior.KnightRider;
 import de.slackspace.tinkerled.device.EnhancedLedStrip;
 
+@Component
 public class LedStripManager {
 
+	private Log logger = LogFactory.getLog(getClass());
+	
 	private static final String HOST = "localhost";
     private static final int PORT = 4223;
     private static final String UID = "oVS"; // UID of LED Strip Bricklet
@@ -27,7 +33,7 @@ public class LedStripManager {
 			ledStrip.setChipType(BrickletLEDStrip.CHIP_TYPE_WS2812);
 			return true;
 		} catch (AlreadyConnectedException | IOException | TimeoutException | NotConnectedException e) {
-			e.printStackTrace();
+			logger.error("Could not connect to led strip", e);
 			return false;
 		}
     }
@@ -37,14 +43,12 @@ public class LedStripManager {
     		ledStrip.turnOff();
 			ipcon.disconnect();
 		} catch (NotConnectedException e) {
-			e.printStackTrace();
+			logger.error("Could not disconnect to led strip", e);
 		}
     }
     
-    public void run() {
-    	KnightRider listener = new KnightRider(ledStrip, 20, 5, 19, 5);
-    	ledStrip.addFrameRenderedListener(listener);
-    	listener.frameRendered(0);
+    public EnhancedLedStrip getLedStrip() {
+    	return ledStrip;
     }
     
 }
